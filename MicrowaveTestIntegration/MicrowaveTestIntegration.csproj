@@ -57,8 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonTest.cs" />
+    <Compile Include="Step1ButtonsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Step1DoorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
