@@ -12,12 +12,12 @@ using NSubstitute;
 namespace MicrowaveTestIntegration
 {
     [TestFixture]
-    public class ButtonTest
+    public class Step1ButtonsTest
     {
         private Button sut_powerButton;
         private Button sut_timeButton;
-        private Button sut_StartCancelButton;
-        private Door sut_door;
+        private Button sut_startCancelButton;
+        private Door door;
 
         private ICookController cook;
         private ILight light;
@@ -29,14 +29,14 @@ namespace MicrowaveTestIntegration
         {
             sut_powerButton = new Button();
             sut_timeButton = new Button();
-            sut_StartCancelButton = new Button();
-            sut_door = new Door();
+            sut_startCancelButton = new Button();
+            door = new Door();
 
             cook = Substitute.For<ICookController>();
             light = Substitute.For<ILight>();
             display = Substitute.For<IDisplay>();
 
-            ui = new UserInterface(sut_powerButton, sut_timeButton, sut_StartCancelButton, sut_door, display, light, cook);
+            ui = new UserInterface(sut_powerButton, sut_timeButton, sut_startCancelButton, door, display, light, cook);
         }
 
         [Test]
@@ -68,32 +68,10 @@ namespace MicrowaveTestIntegration
         [Test]
         public void StartCancelButton_Pressed_UI_Received_OnStartCancelPressed()
         {
-            sut_StartCancelButton.Press();
+            sut_startCancelButton.Press();
 
            // ui.Received().OnStartCancelPressed();
         }
-
-
-        /// <summary>
-        /// Door 
-        /// </summary>
-        [Test]
-        public void Door()
-        {
-            sut_door.Open();
-
-          //  ui.Received().OnDoorOpened();
-        }
-
-        [Test]
-        public void Door_Close()
-        {
-            sut_door.Close();
-
-          //  ui.Received().OnDoorClosed();
-        }
-
-
-
+        
     }
 }
