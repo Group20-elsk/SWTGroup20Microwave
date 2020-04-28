@@ -9,7 +9,7 @@ using MicrowaveOvenClasses.Interfaces;
 using NUnit.Framework;
 using NSubstitute;
 
-namespace MicrowaveTestIntegration
+namespace MicrowaveTestIntegration //Der mangler en .dll fil til Jenkins serveren?? 
 {
     [TestFixture]
     public class Step1DoorTest
