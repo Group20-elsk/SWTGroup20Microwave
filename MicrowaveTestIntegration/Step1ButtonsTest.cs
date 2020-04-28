@@ -39,6 +39,7 @@ namespace MicrowaveTestIntegration
             ui = new UserInterface(sut_powerButton, sut_timeButton, sut_startCancelButton, door, display, light, cook);
         }
 
+        //Test af forbindelse mellem power button og UI
         [Test]
         public void PowerButton_Pressed_UI_Received_OnPowerPressed_StateREADY()
         {
@@ -51,19 +52,34 @@ namespace MicrowaveTestIntegration
         public void PowerButton_Pressed_UI_Received_OnPowerPressed_StateSETPOWER()
         {
             sut_powerButton.Press();
-
             sut_powerButton.Press();
 
-            display.Received().ShowPower(100);
+            display.Received().ShowPower(100);      //Jeg er i tvivl om vi skal teste flere scenarier. Den bliver jo nulstillet på et tidspunkt? Men er det unit test som tester dette?
         }
 
+
+        //Test af forbindelse mellem time button og UI
         [Test]
-        public void TimeButton_Pressed_UI_Received_OnTimePressed()
+        public void TimeButton_Pressed_UI_Received_OnTimePressed_StateSETPOWER()
         {
+            sut_powerButton.Press(); //Her bliver state sat til SETPOWER
             sut_timeButton.Press();
 
-           // ui.Received().OnTimePressed();
+            display.Received().ShowTime(1, 0); //Tallene 1 og 0 kommer fra UserInterface klassen. Man har brugt WhiteBox til at kigge ind i klassen. Dog bruges der black box til at teste
         }
+
+        //Test af forbindelse mellem time button og UI
+        [Test]
+        public void TimeButton_Pressed_UI_Received_OnTimePressed_StateSETTIME()
+        {
+            sut_powerButton.Press(); //Her bliver state sat til SETPOWER
+            sut_timeButton.Press();  //Her bliver state sat til SETTIME
+            sut_timeButton.Press();
+
+            display.Received().ShowTime(2, 0); 
+        }
+
+
 
         [Test]
         public void StartCancelButton_Pressed_UI_Received_OnStartCancelPressed()
