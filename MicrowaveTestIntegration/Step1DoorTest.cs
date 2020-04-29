@@ -39,20 +39,59 @@ namespace MicrowaveTestIntegration
             ui = new UserInterface(powerButton, timeButton, startCancelButton, sut_door, display, light, cook);
         }
 
+        //Test at Door open
+        //READY
+        //SETPOWER
+        //SETTIME
+        //COOKING
         [Test]
-        public void Door()
+        public void Door_OnDoorOpened_Display_Received_Clear_StateReady()
         {
             sut_door.Open();
 
-            //  ui.Received().OnDoorOpened();
+            light.Received().TurnOn();
         }
 
         [Test]
-        public void Door_Close()
+        public void Door_OnDoorOpened_Light_Received_TurnOn_StateSetPower()
         {
+            powerButton.Press(); //Her bliver state sat til SETPOWER
+            sut_door.Open();
+
+            display.Received().Clear();
+        }
+
+        [Test]
+        public void Door_OnDoorOpened_Light_Received_TurnOn_State_SetTime()
+        {
+            powerButton.Press(); //Her bliver state sat til SETPOWER
+            timeButton.Press();  //Her bliver state sat til SETTIME
+            sut_door.Open();
+
+            display.Received().Clear();
+        }
+
+        [Test]
+        public void Door_OnDoorOpened_CookController_Received_Stop_StateCooking()
+        {
+            powerButton.Press(); //Her bliver state sat til SETPOWER
+            timeButton.Press();  //Her bliver state sat til SETTIME
+            startCancelButton.Press();  //Her bliver state sat til COOKING
+            sut_door.Open();
+
+            cook.Received().Stop();
+        }
+
+
+        //Test at Door close
+        //DoorOpen
+        [Test]
+        public void Door_OnDoorClosed_Light_Received_TurnOff_StateDoorOpen()
+        {
+            sut_door.Open(); //Her bliver state sat til DoorOpen
             sut_door.Close();
 
-            //  ui.Received().OnDoorClosed();
+            light.Received().TurnOff();
         }
     }
 }

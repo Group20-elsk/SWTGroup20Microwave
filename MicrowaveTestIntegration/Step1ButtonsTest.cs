@@ -39,9 +39,9 @@ namespace MicrowaveTestIntegration
             ui = new UserInterface(sut_powerButton, sut_timeButton, sut_startCancelButton, door, display, light, cook);
         }
 
-        //Test af forbindelse mellem power button og UI
+        //Test af forbindelse mellem powerButton og UI
         [Test]
-        public void PowerButton_Pressed_UI_Received_OnPowerPressed_StateREADY()
+        public void PowerButton_Pressed_display_Received_ShowPower_50()
         {
             sut_powerButton.Press();
 
@@ -49,7 +49,7 @@ namespace MicrowaveTestIntegration
         }
 
         [Test]
-        public void PowerButton_Pressed_UI_Received_OnPowerPressed_StateSETPOWER()
+        public void PowerButton_Pressed_display_Received_ShowPower_100()
         {
             sut_powerButton.Press();
             sut_powerButton.Press();
@@ -58,9 +58,9 @@ namespace MicrowaveTestIntegration
         }
 
 
-        //Test af forbindelse mellem time button og UI
+        //Test af forbindelse mellem timeButton og UI
         [Test]
-        public void TimeButton_Pressed_UI_Received_OnTimePressed_StateSETPOWER()
+        public void TimeButton_Pressed_display_Received_ShowTime_1_0()
         {
             sut_powerButton.Press(); //Her bliver state sat til SETPOWER
             sut_timeButton.Press();
@@ -68,9 +68,9 @@ namespace MicrowaveTestIntegration
             display.Received().ShowTime(1, 0); //Tallene 1 og 0 kommer fra UserInterface klassen. Man har brugt WhiteBox til at kigge ind i klassen. Dog bruges der black box til at teste
         }
 
-        //Test af forbindelse mellem time button og UI
+      
         [Test]
-        public void TimeButton_Pressed_UI_Received_OnTimePressed_StateSETTIME()
+        public void TimeButton_Pressed_display_Received_ShowTime_2_0()
         {
             sut_powerButton.Press(); //Her bliver state sat til SETPOWER
             sut_timeButton.Press();  //Her bliver state sat til SETTIME
@@ -80,14 +80,41 @@ namespace MicrowaveTestIntegration
         }
 
 
+        //Test af forbindelse mellem StartCancelButten og UI
+        //SetPower
+        //SetTimer
+        //Cooking
+        [Test]
+        public void StartCancelButton_Pressed_light_Received_TurnOff()
+        {
+            sut_powerButton.Press(); //Her bliver state sat til SETPOWER
+            sut_startCancelButton.Press();
+            
+            light.Received().TurnOff(); //Jeg er i tvivl om det er nok bare at tjekke for light? Eller skal man også tjekke for display?
+        }
 
         [Test]
-        public void StartCancelButton_Pressed_UI_Received_OnStartCancelPressed()
+        public void StartCancelButton_Pressed_light_Received_TurnOn()
         {
+            sut_powerButton.Press(); //Her bliver state sat til SETPOWER
+            sut_timeButton.Press();  //Her bliver state sat til SETTIME
             sut_startCancelButton.Press();
 
-           // ui.Received().OnStartCancelPressed();
+            light.Received().TurnOn(); //Jeg er i tvivl om det er nok bare at tjekke for light? Eller skal man også tjekke for display?
         }
-        
+
+        [Test]
+        public void StartCancelButton_Pressed_CookController_Received_Stop()
+        {
+            sut_powerButton.Press(); //Her bliver state sat til SETPOWER
+            sut_timeButton.Press();  //Her bliver state sat til SETTIME
+            sut_startCancelButton.Press();  //Her bliver state sat til COOKING
+            sut_startCancelButton.Press();
+
+            cook.Received().Stop(); //Jeg er i tvivl om det er nok bare at tjekke for cookingController? Eller skal man også tjekke for display?
+        }
+
+
+
     }
 }
