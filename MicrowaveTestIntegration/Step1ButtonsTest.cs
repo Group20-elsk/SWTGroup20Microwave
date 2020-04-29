@@ -11,6 +11,7 @@ using NSubstitute;
 
 namespace MicrowaveTestIntegration
 {
+    //Tror vi får problemer med hensyn til dette på Jenkins. 
     [TestFixture]
     public class Step1ButtonsTest
     {
