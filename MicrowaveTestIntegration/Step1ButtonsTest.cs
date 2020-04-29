@@ -11,7 +11,7 @@ using NSubstitute;
 
 namespace MicrowaveTestIntegration
 {
-    //Tror vi får problemer med hensyn til dette på Jenkins. 
+    //Tror vi får problemer med hensyn til dette på Jenkins.        //Hvad betyder denne kommentar? Mvh Kia
     [TestFixture]
     public class Step1ButtonsTest
     {
